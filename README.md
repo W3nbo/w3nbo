@@ -1,6 +1,6 @@
-# Alex Chen Portfolio
+# W3nbo Xu Portfolio
 
-A minimalist, high-performance personal brand portfolio for a senior product manager.
+A minimalist, high-performance personal brand portfolio for a product manager.
 
 ## Tech Stack
 
