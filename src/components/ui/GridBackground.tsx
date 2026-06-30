@@ -6,10 +6,12 @@ import { useEffect, useRef } from "react";
  * A subtle flowing grid background rendered on canvas.
  * Designed to overlay the hero section with very low opacity,
  * creating a tech-forward atmosphere without being distracting.
+ * Pauses animation when off-screen via IntersectionObserver.
  */
 export function GridBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number | null>(null);
+  const isVisibleRef = useRef(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -42,7 +44,7 @@ export function GridBackground() {
     let offset = 0;
     let time = 0;
 
-    const animate = () => {
+    const draw = () => {
       ctx.clearRect(0, 0, width, height);
 
       if (!prefersReducedMotion) {
@@ -99,11 +101,25 @@ export function GridBackground() {
           }
         }
       }
+    };
 
+    const animate = () => {
+      if (isVisibleRef.current) {
+        draw();
+      }
       rafRef.current = requestAnimationFrame(animate);
     };
 
     rafRef.current = requestAnimationFrame(animate);
+
+    // Pause animation when canvas is off-screen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
 
     const handleResize = () => {
       setSize();
@@ -111,6 +127,7 @@ export function GridBackground() {
     window.addEventListener("resize", handleResize);
 
     return () => {
+      observer.disconnect();
       window.removeEventListener("resize", handleResize);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };

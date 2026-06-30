@@ -1,0 +1,21 @@
+{
+  "name": "W3nbo Xu — AI Product Creator",
+  "short_name": "W3nbo Xu",
+  "description": "市场营销 × 人工智能双学科背景。从数据洞察到产品落地，用 AI 驱动 MVP 快速验证。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
